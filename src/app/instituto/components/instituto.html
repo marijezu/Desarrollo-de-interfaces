@@ -1,0 +1,41 @@
+<div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3" style="width: 20rem;">
+    <div class="card" style="width: 18rem;">
+    <!--Muestro los datos del instituto solo cuando haya en listaInstitutos alguno-->
+
+        <img [src] ="listaInstitutos[posicionActual]?.logo  || 'noimage.jpg'" class="card-img-top" alt="Logo">
+        <div class="card-body">
+          <h5 class="card-title">{{ listaInstitutos[posicionActual]?.centro || 'No hay centro' }}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Localidad: {{ listaInstitutos[posicionActual]?.localidad || 'No hay localidad'}}</li>
+          <li class="list-group-item">Familias Profesionales: {{ listaInstitutos[posicionActual]?.familias  || 'No hay familias'}}</li>
+        </ul>
+
+      <div class="card-body">
+        <!--solo muestro el boton de Anterior cuando no sea el primero de la lista-->
+        @if (posicionActual>0){
+          <button class="btn btn-primary w-100" (click)=" anteriorInstituto()"> ANTERIOR</button>
+        }
+        <!--solo muestro el boton eliminar cuando quede alguno en la listaInstitutos-->
+        @if (listaInstitutos.length > 0){
+          <button class="btn btn-primary w-100" (click)=" eliminarInstituto()"> ELIMINAR</button>
+        }
+
+        @if (pilaInstitutos.length > 0){
+           <button class="btn btn-primary w-100" (click)=" insertarInstituto()"> INSERTAR</button>
+        }
+        <!--solo lo muestro cuando no estoy en la ultima posicion-->
+        @if(posicionActual<listaInstitutos.length -1){
+          <button class="btn btn-primary w-100" (click)=" posteriorInstituto()"> POSTERIOR</button>
+        }
+        <!--muestro este mensaje cuando pulso el boton posicion, cuando pulso otro boton desaparece-->
+        <p class="mt-2 text-center text-success">{{ mensajePosicion }}</p>
+        <p class="mt-2 text-center text-success">Posición: {{ posicionActual+1 }}</p>
+        <!--muestro el contenido de la pila-->
+        <p class="mt-2 text-center text-primary">{{ mostrarListadoPila()}}</p>
+
+        <p></p>
+      </div>
+    </div>
+</div>
+
